@@ -1,6 +1,6 @@
 # Moving bento grid demo
 
-This is a simple demo of moving bento grid animation on my [person site](https://mnsh.me/), countless people have asked the source code so I just open sourced the grid part.
+This is a simple demo of moving bento grid animation on my [personal site](https://mnsh.me/), countless people have asked the source code so I just open sourced the grid part.
 
 ## How it works?
 

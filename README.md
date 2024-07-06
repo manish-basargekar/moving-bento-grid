@@ -10,7 +10,6 @@ Most of the grid heavy lifting is done by [react-grid-layout](https://github.com
 ```css
 .react-grid-item.react-grid-placeholder {
   background: rgba(0, 0, 0, 0.438) none repeat scroll 0% 0%;
-  /* opacity: 0.07; */
   transition-duration: 100ms;
   z-index: 2;
   -webkit-user-select: none;
@@ -24,9 +23,7 @@ Most of the grid heavy lifting is done by [react-grid-layout](https://github.com
 }
 
 .react-grid-item {
-  /* transition: transform 500ms ease 0s !important; */
   transition: visibility 500ms ease 0s;
-  /* will-change: transform; */
 }
 ```
 ### Some gotchas

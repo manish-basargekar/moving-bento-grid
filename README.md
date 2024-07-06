@@ -1,30 +1,45 @@
-# React + TypeScript + Vite
+# Moving bento grid demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple demo of moving bento grid animation on my [person site](https://mnsh.me/), countless people have asked the source code so I just open sourced the grid part.
 
-Currently, two official plugins are available:
+## How it works?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Most of the grid heavy lifting is done by [react-grid-layout](https://github.com/react-grid-layout/react-grid-layout), react helps in changing the grid config when clicking on nav buttons and since ```react-grid-layout``` uses transforms, adding css animation to ```react-grid-item``` allows for smooth transitions.
 
-## Expanding the ESLint configuration
+### index.css
+```css
+.react-grid-item.react-grid-placeholder {
+  background: rgba(0, 0, 0, 0.438) none repeat scroll 0% 0%;
+  /* opacity: 0.07; */
+  transition-duration: 100ms;
+  z-index: 2;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  border-radius: 32px;
+  transition: all 500ms ease 0s !important;
+  will-change: transform;
+}
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
+.react-grid-item {
+  /* transition: transform 500ms ease 0s !important; */
+  transition: visibility 500ms ease 0s;
+  /* will-change: transform; */
 }
 ```
+### Some gotchas
+- You need to import react-grid-layout styles from node_modules in your global CSS.
+- I manually wrote the grid configuration for my site for each of the different layouts. There might be a better way to create or generate this configuration.
+---
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## How to run locally
+
+- Clone/fork the repo: ```git clone https://github.com/manish-basargekar/moving-bento-grid.git```
+
+- Install ```node_modules``` ```npm i```
+
+- Run the vite app ```npm run dev```
+
+Feel free to contribute and suggest improvements!

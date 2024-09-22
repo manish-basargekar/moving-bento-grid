@@ -2,6 +2,12 @@
 
 This is a simple demo of moving bento grid animation on my [personal site](https://mnsh.me/), countless people have asked the source code so I just open sourced the grid part.
 
+
+
+https://github.com/user-attachments/assets/c9288ea7-f886-4348-beba-f021c6e1e65b
+
+
+
 ## How it works?
 
 Most of the grid heavy lifting is done by [react-grid-layout](https://github.com/react-grid-layout/react-grid-layout), react helps in changing the grid config when clicking on nav buttons and since ```react-grid-layout``` uses transforms, adding css animation to ```react-grid-item``` allows for smooth transitions.

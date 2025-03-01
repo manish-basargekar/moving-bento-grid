@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Layout from "./components/layout";
 import Navbar from "./components/navbar";
 
@@ -13,28 +13,22 @@ function App() {
 	const [tab, setTab] = useState<TabKey>(TabKey.Home);
 	const [x, setX] = useState(0);
 	const [w, setW] = useState(0);
-
-	const tabOffsets = {
-		Home: 0,
-		Work: 1,
-		Blog: 2,
-		Contact: 3,
-	};
+	const navbarRef = useRef<HTMLDivElement>(null);
+	const tabRefs = useRef<Record<TabKey, HTMLDivElement | null>>({
+		[TabKey.Home]: null,
+		[TabKey.Work]: null,
+		[TabKey.Blog]: null,
+		[TabKey.Contact]: null,
+	});
 
 	useEffect(() => {
 		const calculateSliderPosition = () => {
-			const navbarElement = document.querySelector(".navbar"); 
+			const currentTabRef = tabRefs.current[tab];
 
-			if (navbarElement) {
-				const tabElements = navbarElement.querySelectorAll(".tab"); 
-
-				if (tabElements.length > 0) {
-					const baseX = tabElements[0].getBoundingClientRect().left;
-					const baseW = tabElements[0].getBoundingClientRect().width;
-
-					setX(baseX + tabOffsets[tab] * baseW);
-					setW(baseW);
-				}
+			if (currentTabRef) {
+				const rect = currentTabRef.getBoundingClientRect();
+				setX(rect.left);
+				setW(rect.width);
 			}
 		};
 
@@ -48,8 +42,15 @@ function App() {
 	}, [tab]);
 
 	return (
-		<main className="bg-[#f7f2f2]">
-			<Navbar tab={tab} setTab={setTab} left={x} sliderWidth={w} />
+		<main className="bg-red-400 ">
+			<Navbar
+				tab={tab}
+				setTab={setTab}
+				left={x}
+				sliderWidth={w}
+				navRef={navbarRef}
+				tabRefs={tabRefs}
+			/>
 			<Layout tab={tab} setTab={setTab} left={x} sliderWidth={w} />
 		</main>
 	);

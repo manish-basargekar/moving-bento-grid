@@ -44,7 +44,7 @@ function Layout({ tab }: LayoutProps) {
   );
 
   return (
-    <div className="w-[1280px] m-auto flex justify-between b-10">
+    <div className="w-screen m-auto flex justify-between b-10">
       <ResponsiveReactGridLayout
         className="m-auto w-[900px]"
         breakpoints={{ xl: 1200, lg: 899, md: 768, sm: 480, xs: 200 }}

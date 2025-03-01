@@ -1,17 +1,16 @@
 import { TabKey } from "../App";
-import { forwardRef } from "react";
+import {  useEffect, useRef } from "react";
 
 interface NavbarProps {
 	tab: TabKey;
 	setTab: (tab: TabKey) => void;
 	left?: number;
 	sliderWidth?: number;
-	navRef: React.RefObject<HTMLDivElement>;
-	tabRefs: React.MutableRefObject<Record<TabKey, HTMLDivElement | null>>;
+	setX: (x: number) => void;
+	setW: (w: number) => void;
 }
 
-const Navbar = forwardRef<HTMLDivElement, NavbarProps>(
-	({ tab, setTab, left = 0, sliderWidth = 0, navRef, tabRefs }) => {
+const Navbar = ({ tab, setTab, left = 0, sliderWidth = 0 , setX, setW}:NavbarProps) => {
 		const tabs = [
 			{ key: TabKey.Home, label: "Home" },
 			{ key: TabKey.Work, label: "Projects" },
@@ -19,9 +18,34 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(
 			{ key: TabKey.Contact, label: "Contact" },
 		];
 
+			const tabRefs = useRef<Record<TabKey, HTMLDivElement | null>>({
+				[TabKey.Home]: null,
+				[TabKey.Work]: null,
+				[TabKey.Blog]: null,
+				[TabKey.Contact]: null,
+			});
+
+			useEffect(() => {
+				const calculateSliderPosition = () => {
+					const currentTabRef = tabRefs.current[tab];
+
+					if (currentTabRef) {
+						const rect = currentTabRef.getBoundingClientRect();
+						setX(rect.left);
+						setW(rect.width);
+					}
+				};
+
+				calculateSliderPosition();
+
+				window.addEventListener("resize", calculateSliderPosition);
+
+				return () => {
+					window.removeEventListener("resize", calculateSliderPosition);
+				};
+			}, [tab]);
 		return (
 			<div
-				ref={navRef}
 				className="navbar bg-black-1 text-white mx-auto sticky top-0 z-[10000] backdrop-saturate-180 backdrop-blur-lg md:display-none pt-2"
 			>
 				<div className="bg-white max-w-[900px] m-auto rounded-full text-1.8rem border-b border-gray-200 p-[3px]">
@@ -52,7 +76,6 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(
 				</div>
 			</div>
 		);
-	}
-);
+	};
 
 export default Navbar;

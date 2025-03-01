@@ -42,7 +42,7 @@ function App() {
 	}, [tab]);
 
 	return (
-		<main className="bg-red-400 ">
+		<main className="bg-[#f7f2f2] ">
 			<Navbar
 				tab={tab}
 				setTab={setTab}

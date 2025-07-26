@@ -45,4 +45,7 @@ Most of the grid heavy lifting is done by [react-grid-layout](https://github.com
 
 - Run the vite app ```npm run dev```
 
-Feel free to contribute and suggest improvements!
+---
+Star the repository if you liked the demo and Feel free to contribute and suggest improvements
+
+Follow me on [Twitter](https://x.com/madebymanish) for more such cool ui components!
